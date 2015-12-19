@@ -8,9 +8,10 @@ using DayZero.Authentication.OpenIddict.FrontEnd.Models;
 namespace DayZero.Authentication.OpenIddict.FrontEnd.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20151212002132_OpenIddictModel")]
+    partial class OpenIddictModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc2-16485")
