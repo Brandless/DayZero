@@ -11,8 +11,6 @@ namespace DayZero.Authentication.OpenIddict.FrontEnd.Models
 {
     public class ApplicationDbContext : OpenIddictContext<ApplicationUser>
     {
-        private static bool _databaseChecked;
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -21,6 +19,7 @@ namespace DayZero.Authentication.OpenIddict.FrontEnd.Models
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
+        private static bool _databaseChecked;
         // The following code creates the database and schema if they don't exist.
         // This is a temporary workaround since deploying database through EF migrations is
         // not yet supported in this release.

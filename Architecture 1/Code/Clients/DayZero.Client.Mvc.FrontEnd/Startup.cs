@@ -83,7 +83,7 @@ namespace DayZero.Client.Mvc.FrontEnd
 
             app.UseOpenIdConnectAuthentication(options =>
             {
-                var idServerUrl = "http://localhost:50513/";
+                var idServerUrl = "http://localhost:50522/";
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
                 options.ClientId = "myClient";

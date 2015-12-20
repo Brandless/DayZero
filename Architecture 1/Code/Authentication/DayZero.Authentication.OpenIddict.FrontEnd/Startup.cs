@@ -123,37 +123,37 @@ namespace DayZero.Authentication.OpenIddict.FrontEnd
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
-            app.UseMvcWithDefaultRoute();
+    app.UseMvcWithDefaultRoute();
 
-            using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>())
+    using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>())
+    {
+        context.Database.EnsureCreated();
+
+        // Add Mvc.Client to the known applications.
+        if (!context.Applications.Any())
+        {
+            // Note: when using the introspection middleware, your resource server
+            // MUST be registered as an OAuth2 client and have valid credentials.
+            // 
+            // context.Applications.Add(new Application {
+            //     Id = "resource_server",
+            //     DisplayName = "Main resource server",
+            //     Secret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd"
+            // });
+
+            context.Applications.Add(new Application
             {
-                context.Database.EnsureCreated();
+                Id = "myClient",
+                DisplayName = "My client application",
+                RedirectUri = "http://localhost:53984/signin-oidc",
+                LogoutRedirectUri = "http://localhost:53984/",
+                Secret = Crypto.HashPassword("secret_secret_secret"),
+                Type = OpenIddictConstants.ApplicationTypes.Confidential
+            });
 
-                // Add Mvc.Client to the known applications.
-                if (!context.Applications.Any())
-                {
-                    // Note: when using the introspection middleware, your resource server
-                    // MUST be registered as an OAuth2 client and have valid credentials.
-                    // 
-                    // context.Applications.Add(new Application {
-                    //     Id = "resource_server",
-                    //     DisplayName = "Main resource server",
-                    //     Secret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd"
-                    // });
-
-                    context.Applications.Add(new Application
-                    {
-                        Id = "myClient",
-                        DisplayName = "My client application",
-                        RedirectUri = "http://localhost:53984/signin-oidc",
-                        LogoutRedirectUri = "http://localhost:53984/",
-                        Secret = Crypto.HashPassword("secret_secret_secret"),
-                        Type = OpenIddictConstants.ApplicationTypes.Confidential
-                    });
-
-                    context.SaveChanges();
-                }
-            }
+            context.SaveChanges();
+        }
+    }
         }
 
         // Entry point for the application.
