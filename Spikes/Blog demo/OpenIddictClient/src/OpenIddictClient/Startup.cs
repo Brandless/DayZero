@@ -88,7 +88,7 @@ namespace OpenIddictClient
                 var idServerUrl = "http://localhost:51962/";
                 // Note: these settings must match the application details
                 // inserted in the database at the server level.
-                options.ClientId = "My Client";
+                options.ClientId = "MyClient";
                 options.ClientSecret = "A4E3209160D3";
                 options.PostLogoutRedirectUri = "http://localhost:57551/";
 
@@ -103,10 +103,6 @@ namespace OpenIddictClient
                 // retrieve the identity provider's configuration and spare you from setting
                 // the different endpoints URIs or the token validation parameters explicitly.
                 options.Authority = idServerUrl;
-
-                // Note: the resource property represents the different endpoints the
-                // access token should be issued for (values must be space-delimited).
-                options.Resource = idServerUrl;
 
                 options.Scope.Add("email");
             });

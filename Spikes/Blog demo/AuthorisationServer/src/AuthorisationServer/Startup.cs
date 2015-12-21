@@ -101,18 +101,17 @@ namespace AuthorisationServer
 
             app.UseStaticFiles();
 
-            app.UseOAuthValidation();
-
             app.UseIdentity();
             
             app.UseOpenIddict();
+
+            app.UseOAuthValidation();
 
             app.UseMvcWithDefaultRoute();
 
             using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>())
             {
                 context.Database.EnsureCreated();
-
                 // Add Mvc.Client to the known applications.
                 if (!context.Applications.Any())
                 {
@@ -127,9 +126,9 @@ namespace AuthorisationServer
 
                     context.Applications.Add(new Application
                     {
-                        Id = "My Client",
+                        Id = "MyClient",
                         DisplayName = "My client application",
-                        RedirectUri = "http://localhost:51962" + "/signin-oidc",
+                        RedirectUri = "http://localhost:57551" + "/signin-oidc",
                         LogoutRedirectUri = "http://localhost:57551/",
                         Secret = Crypto.HashPassword("A4E3209160D3"),
                         Type = OpenIddictConstants.ApplicationTypes.Confidential
